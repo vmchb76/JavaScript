@@ -19,13 +19,17 @@ class League {
     setupTeams(teamNames) {
         this.teams = []
         for (const teamName of teamNames) {
-            const team = {
-                name: teamName,
-                matchesWon: 0,
-                matchesDrawn: 0,
-                matchesLost: 0
-            }
+            const team = this.customizeTeam(teamName)
             this.teams.push(team)
+        }
+    }
+
+    customizeTeam(teamName) {
+        return {
+            name: teamName,
+            matchesWon: 0,
+            matchesDrawn: 0,
+            matchesLost: 0
         }
     }
 }
@@ -43,6 +47,13 @@ class PointsBasedLeague extends League {
             pointsPerLose: 0
         }
         this.config = Object.assign(defaultConfig, config)
+    }
+
+    customizeTeam(teamName) {
+        // Llamar al metodo customizeTeam del padre
+        // Devolver un objeto con los mismos datos del objeto que devuelve el padre
+        // Y ademas las propiedades: goalsFor: 0 y goalsAgainst :0
+        // Tip: usar spreading
     }
 
 }
