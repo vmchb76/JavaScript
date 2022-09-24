@@ -1,3 +1,7 @@
+const LOCAL_TEAM = 0
+const AWAY_TEAM = 1
+
+
 export default class League {
 
     constructor(name, teams=[], config={}) {
@@ -31,7 +35,7 @@ export default class League {
         }
     }
 
-    scheduleMatchDays() {
+    initSchedule() {
         const numberOfMatchDays = this.teams.length - 1
         const numberOfMatchesPerMatchDay = this.teams.length / 2
          for (let i = 0; i < numberOfMatchDays; i++) {
@@ -43,6 +47,40 @@ export default class League {
              //una vez añadidos todos los partidos a la jornada
              this.matchDaySchedule.push(matchDay) // añadimos la jornada a la planificacion 
          }
+    }
+ 
+    getTeamNames() {
+        return this.teams.map(team => team.name)
+    }   
+    
+    setLocalTeams() {
+        const teamNames= this.getTeamNames()
+        const maxHomeTeams = this.teams.length - 2
+        let teamIndex = 0
+        this.matchDaySchedule.forEach(matchDay => { // por cada jornada
+             matchDay.forEach(match => { // por cada partido de cada jornada
+               // establecer el equipo local
+               match[LOCAL_TEAM] = teamNames[teamIndex]
+               teamIndex++
+               if (teamIndex > maxHomeTeams) {
+                  teamIndex = 0
+               }
+             })
+        })
+    /*
+     Este codigo seria el equivalente al superior usando bucles clasicos
+    for (let i = 0; i < this.matchDaySchedule.length; i++) {
+        const matchDay = this.matchDaySchedule[i]
+         for (j = 0; j < matchDay.length; j++) {
+            const match = matchDay[j]
+         }
+    }
+    */
+    }
 
+    scheduleMatchDays() {
+        this.initSchedule()
+        this.setLocalTeams() 
+       
     }
 }
