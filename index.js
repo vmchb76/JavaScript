@@ -3,15 +3,18 @@ import FootballLeague from "./clases/PointsBasedLeague.js";
 import { premierLeagueTeams } from "./teams.js"
 
 const config = { rounds : 2, pointsPerWin: 3}
-const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
-
+//const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
+const premier = new FootballLeague('Premier League', ['A', 'B', 'C', 'D'], config);
 //console.log('CONFIG' ,premier.config);
 
 const teamNames = premier.teams.map(team => team.name)
 
-teamNames.forEach(function(equipo) {
-    console.log(equipo)
-})
+//teamNames.forEach(function(equipo) {
+//    console.log(equipo)
+//})
+ 
+premier.scheduleMatchDays()
+console.log(premier.matchDaySchedule)
 
 /*
 for (const teamName of teamNames) {

@@ -30,4 +30,19 @@ export default class League {
             matchesLost: 0
         }
     }
+
+    scheduleMatchDays() {
+        const numberOfMatchDays = this.teams.length - 1
+        const numberOfMatchesPerMatchDay = this.teams.length / 2
+         for (let i = 0; i < numberOfMatchDays; i++) {
+            const matchDay = [] // jornada vacia
+             for (let j = 0; j < numberOfMatchesPerMatchDay; j++) {
+                const match = ['Equipo local', 'Equipo visitante'] // partido
+                matchDay.push(match)
+             }
+             //una vez añadidos todos los partidos a la jornada
+             this.matchDaySchedule.push(matchDay) // añadimos la jornada a la planificacion 
+         }
+
+    }
 }
