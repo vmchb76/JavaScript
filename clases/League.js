@@ -78,9 +78,31 @@ export default class League {
     */
     }
 
+    setAwayTeam() {
+        const teamNames= this.getTeamNames()
+        const maxAwayTeams = this.teams.length - 2
+        let teamIndex = maxAwayTeams
+        this.matchDaySchedule.forEach(matchDay => {
+            let isFirstMatch = true
+            matchDay.forEach(match => {
+                // establecer equipo visitante
+                if (isFirstMatch) {
+                    isFirstMatch = false
+                } else {
+                    match[AWAY_TEAM] = teamNames[teamIndex]
+                    teamIndex--
+                    if (teamIndex < 0) {
+                        teamIndex = maxAwayTeams
+                    }
+                }
+            })
+        })
+    }
+
     scheduleMatchDays() {
         this.initSchedule()
         this.setLocalTeams() 
+        this.setAwayTeam()
        
     }
 }
