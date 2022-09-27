@@ -4,7 +4,7 @@ import { premierLeagueTeams } from "./teams.js"
 
 const config = { rounds : 2, pointsPerWin: 3}
 //const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
-const premier = new FootballLeague('Premier League', ['A', 'B', 'C', 'D'], config);
+const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
 //console.log('CONFIG' ,premier.config);
 
 const teamNames = premier.teams.map(team => team.name)

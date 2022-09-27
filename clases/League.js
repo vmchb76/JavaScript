@@ -99,10 +99,28 @@ export default class League {
         })
     }
 
+    fixLastTeamSchedule() {
+        let matchDayNumber = 1
+        const teamNames = this.getTeamNames()
+        const lastTeamName = teamNames[teamNames.length - 1]
+        this.matchDaySchedule.forEach(matchDay => {
+            const firstMatch = matchDay[0]
+             if (matchDayNumber % 2 == 0) { // si jornada par -> juega en casa
+                  firstMatch[AWAY_TEAM] = firstMatch[LOCAL_TEAM]
+                  firstMatch[LOCAL_TEAM] = lastTeamName
+             } else { // jornada impar -> juega fuera
+                 firstMatch[AWAY_TEAM] = lastTeamName
+             }
+             matchDayNumber++
+            // establecer el ultimo equipo de la lista como visitante o local alternativamente
+        })
+    }
+
     scheduleMatchDays() {
+        // https://es.wikipedia.org/wiki/Sistema_de_todos_contra_todos
         this.initSchedule()
         this.setLocalTeams() 
         this.setAwayTeam()
-       
+        this.fixLastTeamSchedule()
     }
 }
