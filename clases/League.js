@@ -1,3 +1,16 @@
+Array.prototype.shuffle = function()
+{
+	var i = this.length;
+	while (i)
+	{
+		var j = Math.floor(Math.random() * i);
+		var t = this[--i];
+		this[i] = this[j];
+		this[j] = t;
+	}
+	return this;
+}
+
 const LOCAL_TEAM = 0
 const AWAY_TEAM = 1
 
@@ -24,6 +37,7 @@ export default class League {
             const team = this.customizeTeam(teamName)
             this.teams.push(team)
         }
+        this.teams.shuffle()
     }
 
     customizeTeam(teamName) {
@@ -41,7 +55,7 @@ export default class League {
          for (let i = 0; i < numberOfMatchDays; i++) {
             const matchDay = [] // jornada vacia
              for (let j = 0; j < numberOfMatchesPerMatchDay; j++) {
-                const match = ['Equipo local', 'Equipo visitante'] // partido
+                const match = ['Equipo Local', 'Equipo Visitante'] // partido
                 matchDay.push(match)
              }
              //una vez añadidos todos los partidos a la jornada
