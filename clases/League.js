@@ -65,11 +65,20 @@ export default class League {
  
     getTeamNames() {
         return this.teams.map(team => team.name)
-    }   
+    }
+    
+    getTeamNamesForSchedule() {
+        const teamNames = this.getTeamNames()
+        if (teamNames.length % 2 == 0) { // son pares
+            return teamNames
+        } else {
+            return [...teamNames, null] 
+        }
+    }
     
     setLocalTeams() {
-        const teamNames= this.getTeamNames()
-        const maxHomeTeams = this.teams.length - 2
+        const teamNames= this.getTeamNamesForSchedule()
+        const maxHomeTeams = teamNames.length - 2
         let teamIndex = 0
         this.matchDaySchedule.forEach(matchDay => { // por cada jornada
              matchDay.forEach(match => { // por cada partido de cada jornada
@@ -93,8 +102,8 @@ export default class League {
     }
 
     setAwayTeam() {
-        const teamNames= this.getTeamNames()
-        const maxAwayTeams = this.teams.length - 2
+        const teamNames= this.getTeamNamesForSchedule()
+        const maxAwayTeams = teamNames.length - 2
         let teamIndex = maxAwayTeams
         this.matchDaySchedule.forEach(matchDay => {
             let isFirstMatch = true
@@ -115,7 +124,7 @@ export default class League {
 
     fixLastTeamSchedule() {
         let matchDayNumber = 1
-        const teamNames = this.getTeamNames()
+        const teamNames = this.getTeamNamesForSchedule()
         const lastTeamName = teamNames[teamNames.length - 1]
         this.matchDaySchedule.forEach(matchDay => {
             const firstMatch = matchDay[0]
