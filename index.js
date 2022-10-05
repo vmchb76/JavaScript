@@ -13,7 +13,7 @@ const teamNames = premier.teams.map(team => team.name)
 //    console.log(equipo)
 //})
  
-premier.scheduleMatchDays()
+premier.scheduleMatchDays2()
 //console.log(premier.matchDaySchedule)
 
 let i = 1
