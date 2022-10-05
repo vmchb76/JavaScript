@@ -4,6 +4,7 @@ import { premierLeagueTeams } from "./teams.js"
 
 const config = { rounds : 2, pointsPerWin: 3}
 const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
+//const premier = new FootballLeague('Premier League', ['A', 'B', 'C', 'D'], config);
 //console.log('CONFIG' ,premier.config);
 
 const teamNames = premier.teams.map(team => team.name)
@@ -13,7 +14,18 @@ const teamNames = premier.teams.map(team => team.name)
 //})
  
 premier.scheduleMatchDays()
-console.log(premier.matchDaySchedule)
+//console.log(premier.matchDaySchedule)
+
+let i = 1
+premier.matchDaySchedule.forEach(matchDay => {
+    console.table(`Jornada ${i}`)
+     matchDay.forEach(match => {
+        console.table(match.join(' Vs '))
+     })
+     i++
+})
+
+
 
 /*
 for (const teamName of teamNames) {

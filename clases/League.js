@@ -49,7 +49,7 @@ export default class League {
         }
     }
 
-    initSchedule() {
+    initSchedule(round) {
         const numberOfMatchDays = this.teams.length - 1
         const numberOfMatchesPerMatchDay = this.teams.length / 2
          for (let i = 0; i < numberOfMatchDays; i++) {
@@ -59,7 +59,7 @@ export default class League {
                 matchDay.push(match)
              }
              //una vez añadidos todos los partidos a la jornada
-             this.matchDaySchedule.push(matchDay) // añadimos la jornada a la planificacion 
+             round.push(matchDay) // añadimos la jornada a la planificacion 
          }
     }
  
@@ -76,11 +76,11 @@ export default class League {
         }
     }
     
-    setLocalTeams() {
+    setLocalTeams(round) {
         const teamNames= this.getTeamNamesForSchedule()
         const maxHomeTeams = teamNames.length - 2
         let teamIndex = 0
-        this.matchDaySchedule.forEach(matchDay => { // por cada jornada
+        round.forEach(matchDay => { // por cada jornada
              matchDay.forEach(match => { // por cada partido de cada jornada
                // establecer el equipo local
                match[LOCAL_TEAM] = teamNames[teamIndex]
@@ -101,11 +101,11 @@ export default class League {
     */
     }
 
-    setAwayTeam() {
+    setAwayTeam(round) {
         const teamNames= this.getTeamNamesForSchedule()
         const maxAwayTeams = teamNames.length - 2
         let teamIndex = maxAwayTeams
-        this.matchDaySchedule.forEach(matchDay => {
+        round.forEach(matchDay => {
             let isFirstMatch = true
             matchDay.forEach(match => {
                 // establecer equipo visitante
@@ -122,11 +122,11 @@ export default class League {
         })
     }
 
-    fixLastTeamSchedule() {
+    fixLastTeamSchedule(round) {
         let matchDayNumber = 1
         const teamNames = this.getTeamNamesForSchedule()
         const lastTeamName = teamNames[teamNames.length - 1]
-        this.matchDaySchedule.forEach(matchDay => {
+        round.forEach(matchDay => {
             const firstMatch = matchDay[0]
              if (matchDayNumber % 2 == 0) { // si jornada par -> juega en casa
                   firstMatch[AWAY_TEAM] = firstMatch[LOCAL_TEAM]
@@ -140,10 +140,31 @@ export default class League {
     }
 
     scheduleMatchDays() {
-        // https://es.wikipedia.org/wiki/Sistema_de_todos_contra_todos
-        this.initSchedule()
-        this.setLocalTeams() 
-        this.setAwayTeam()
-        this.fixLastTeamSchedule()
+        for (let i = 0; i < this.config.rounds; i++) {
+            const newRound = this.createRound()
+            // si la jornada es par invertir los partidos
+               if (i % 2 != 0) {
+                for (const matchDay of newRound) {
+                    for (const match of matchDay) {
+                        const localTeam = match[LOCAL_TEAM]
+                        match[LOCAL_TEAM] = match[AWAY_TEAM]
+                        match[AWAY_TEAM] = localTeam
+                    }
+                }
+               }
+            this.matchDaySchedule = this.matchDaySchedule.concat(newRound)
+            
+            }       
+       
     }
+
+    createRound() {
+        // https://es.wikipedia.org/wiki/Sistema_de_todos_contra_todos
+        const newRound = []
+        this.initSchedule(newRound)
+        this.setLocalTeams(newRound) 
+        this.setAwayTeam(newRound)
+        this.fixLastTeamSchedule(newRound)
+        return newRound
+      }
 }
