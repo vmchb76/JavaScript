@@ -11,8 +11,8 @@ Array.prototype.shuffle = function()
 	return this;
 }
 
-const LOCAL_TEAM = 0
-const AWAY_TEAM = 1
+export const LOCAL_TEAM = 0
+export const AWAY_TEAM = 1
 
 
 export default class League {
@@ -185,4 +185,24 @@ export default class League {
          })
          this.matchDaySchedule = this.matchDaySchedule.concat(secondRound)
     }  
+
+    start() {
+        for (const matchDay of this.matchDaySchedule) {
+            for (const match of matchDay) {
+                  const result = this.play(match)
+                  this.updateTeams(result) // actualizamos los equipos con el resultado del partido 
+                
+            }
+            console.log('Calcular clasificacion')
+            console.log('Guardar resumen de la jornada')
+        }
+    }
+
+    updateTeams(result) {
+        throw new Error ('updateTeams method not implemented')
+    }
+
+    play(match) {
+        throw new Error ('Play method not implemented')
+    }
 }

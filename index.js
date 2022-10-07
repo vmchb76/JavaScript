@@ -13,19 +13,20 @@ const teamNames = premier.teams.map(team => team.name)
 //    console.log(equipo)
 //})
  
-premier.scheduleMatchDays2()
+premier.scheduleMatchDays()
 //console.log(premier.matchDaySchedule)
 
+// Mostramos por pantalla las jornadas y sus partidos
 let i = 1
 premier.matchDaySchedule.forEach(matchDay => {
-    console.table(`Jornada ${i}`)
+    console.log(`Jornada ${i}`)
      matchDay.forEach(match => {
-        console.table(match.join(' Vs '))
+        const home = match[0] != null ? match[0] : 'Descansa'
+        const away = match[1] != null ? match[1] : 'Descansa'
+        console.log(`${home} Vs ${away}`)
      })
      i++
 })
-
-
 
 /*
 for (const teamName of teamNames) {
@@ -38,3 +39,8 @@ for (const team of premier.teams) {
     console.log(team)
 }
 */
+
+// Comenzar la liga
+
+premier.start()
+console.log('Teams', premier.teams)
