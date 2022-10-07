@@ -50,14 +50,24 @@ export default class PointsBasedLeague extends League {
          }
     }
 
+    getTeamForName(name) {
+        return this.teams.find(team => team.name == name)
+    }
+
     updateTeams(result) {
         console.log('updateTeams', result)
 
+        const homeTeam = this.getTeamForName(result.homeTeam)
+        const awayTeam = this.getTeamForName(result.awayTeam)
+        console.log('TEAMS', homeTeam, awayTeam)
+
+        /*
         const filteredTeams = this.teams.find(function(team) {
             //console.log('**********', team.name, result.homeTeam, team.name == result.homeTeam)
                return team.name == result.homeTeam
         })
         console.log('filteredTeams', filteredTeams)
+        */
 
         //buscar el equipo por su nombre  en el array de equipos
 

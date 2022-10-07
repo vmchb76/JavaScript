@@ -43,4 +43,4 @@ for (const team of premier.teams) {
 // Comenzar la liga
 
 premier.start()
-console.log('Teams', premier.teams)
+//console.log('Teams', premier.teams)
