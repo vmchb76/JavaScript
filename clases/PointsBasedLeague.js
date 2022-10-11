@@ -59,23 +59,44 @@ export default class PointsBasedLeague extends League {
 
         const homeTeam = this.getTeamForName(result.homeTeam)
         const awayTeam = this.getTeamForName(result.awayTeam)
-        console.log('TEAMS', homeTeam, awayTeam)
-
+        if (homeTeam && awayTeam) { // si no encuentra ambos equipos
+        
+             homeTeam.goalsFor += result.homeGoals
+             homeTeam.goalsAgainst += result.awayGoals
+             awayTeam.goalsFor += result.awayGoals
+             awayTeam.goalsAgainst += result.homeGoals
         /*
         const filteredTeams = this.teams.find(function(team) {
             //console.log('**********', team.name, result.homeTeam, team.name == result.homeTeam)
-               return team.name == result.homeTeam
+            return team.name == result.homeTeam
         })
         console.log('filteredTeams', filteredTeams)
         */
-
-        //buscar el equipo por su nombre  en el array de equipos
-
-        // añadir 3 puntos al equipo que gana
-        // añadir 1 punto a los equipos si empatan
-        // sumar los partidos ganados, empatados o perdidos
-        // sumar los goles a favor y goles en contra de cada equipo
-        
+       
+       //buscar el equipo por su nombre  en el array de equipos
+       
+       // añadir 3 puntos al equipo que gana
+       if (result.homeGoals > result.awayGoals) { // gana equipo local
+        homeTeam.points += this.config.pointsPerWin
+        homeTeam.matchesWon += 1
+        awayTeam.points += this.config.pointsPerLose
+        awayTeam.matchesLost += 1
+    } else if (result.homeGoals < result.awayGoals) { //gana equipo visitante
+        homeTeam.points += this.config.pointsPerLose
+        homeTeam.matchesLost += 1
+        awayTeam.points += this.config.pointsPerWin
+        awayTeam.matchesWon += 1
+    } else { // empate
+        homeTeam.points += this.config.pointsPerDraw
+        homeTeam.matchesDrawn += 1
+        awayTeam.points += this.config.pointsPerDraw
+        awayTeam.matchesDrawn += 1
     }
+    console.log('TEAMS', homeTeam, awayTeam)
+    // añadir 1 punto a los equipos si empatan
+    // sumar los partidos ganados, empatados o perdidos
+    // sumar los goles a favor y goles en contra de cada equipo
+ } 
+}
 
 }
