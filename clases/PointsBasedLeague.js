@@ -55,7 +55,7 @@ export default class PointsBasedLeague extends League {
     }
 
     updateTeams(result) {
-        console.log('updateTeams', result)
+        //console.log('updateTeams', result)
 
         const homeTeam = this.getTeamForName(result.homeTeam)
         const awayTeam = this.getTeamForName(result.awayTeam)
@@ -92,7 +92,7 @@ export default class PointsBasedLeague extends League {
         awayTeam.points += this.config.pointsPerDraw
         awayTeam.matchesDrawn += 1
     }
-    console.log('TEAMS', homeTeam, awayTeam)
+    //console.log('TEAMS', homeTeam, awayTeam)
     // añadir 1 punto a los equipos si empatan
     // sumar los partidos ganados, empatados o perdidos
     // sumar los goles a favor y goles en contra de cada equipo

@@ -22,7 +22,7 @@ export default class League {
         this.matchDaySchedule = []
         this.setup(config)
         this.setupTeams(teams) 
-        
+        this.summaries = []
     }
 
     setup(config) { 
@@ -187,14 +187,21 @@ export default class League {
     }  
 
     start() {
+        
         for (const matchDay of this.matchDaySchedule) {
+            const matchDatSummary = {
+                results: [],
+                standings: undefined
+            }
             for (const match of matchDay) {
                   const result = this.play(match)
                   this.updateTeams(result) // actualizamos los equipos con el resultado del partido 
+                  matchDatSummary.results.push(result)
                 
             }
-            console.log('Calcular clasificacion')
-            console.log('Guardar resumen de la jornada')
+            //console.log('Calcular clasificacion')
+            //console.log('Guardar resumen de la jornada')
+            this.summaries.push(matchDatSummary)
         }
     }
 

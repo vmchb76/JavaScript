@@ -43,4 +43,7 @@ for (const team of premier.teams) {
 // Comenzar la liga
 
 premier.start()
+
+// mostrar por pantalla los resultados de cada joranda y la clasificacion
+console.log(premier.summaries)
 //console.log('Teams', premier.teams)
