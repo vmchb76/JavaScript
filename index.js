@@ -43,7 +43,15 @@ for (const team of premier.teams) {
 // Comenzar la liga
 
 premier.start()
-
 // mostrar por pantalla los resultados de cada joranda y la clasificacion
-console.log(premier.summaries)
+i = 1
+premier.summaries.forEach(summary => {
+    console.log(`Resumen Jornada ${i}`)
+    summary.results.forEach(result => {
+        console.log(`${result.homeTeam} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeam}`)        
+    })
+    console.table(summary.standings)
+    i++
+})
+//console.log(premier.summaries)
 //console.log('Teams', premier.teams)

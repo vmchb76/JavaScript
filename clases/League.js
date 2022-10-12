@@ -200,9 +200,15 @@ export default class League {
                 
             }
             //console.log('Calcular clasificacion')
+            this.getStandings()
+            matchDatSummary.standings = this.teams.map(team => Object.assign({}, team))
             //console.log('Guardar resumen de la jornada')
             this.summaries.push(matchDatSummary)
         }
+    }
+
+    getStandings() {
+        throw new Error('getStandings not implemented');
     }
 
     updateTeams(result) {

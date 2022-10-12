@@ -99,4 +99,26 @@ export default class PointsBasedLeague extends League {
  } 
 }
 
+getStandings() {
+    this.teams.sort(function(teamA, teamB) {
+         if (teamA.points > teamB.points) {
+            return -1
+         } else if (teamA.points < teamB.points) {
+           return 1  
+         } else { // empatan a puntos
+            const goalsDiffA = teamA.goalsFor - teamA.goalsAgainst
+            const goalsDiffB = teamB.goalsFor - teamB.goalsAgainst
+            if (goalsDiffA > goalsDiffB) {
+                return -1
+            } else if (goalsDiffA < goalsDiffB) {
+                return 1
+            } else {
+                return 0
+            }
+         }    
+    })
+    console.log('Standings')
+    console.table(this.teams)
+}
+
 }
