@@ -50,8 +50,42 @@ premier.summaries.forEach(summary => {
     summary.results.forEach(result => {
         console.log(`${result.homeTeam} ${result.homeGoals} - ${result.awayGoals} ${result.awayTeam}`)        
     })
-    console.table(summary.standings)
-    i++
+    console.table(summary.standings.map(team => {
+        return {
+            Team: team.name,
+            Points: team.points,
+            PlayedMatches: team.matchesWon + team.matchesDrawn + team.matchesLost,
+            Won: team.matchesWon,
+            Drawn: team.matchesDrawn,
+            Lost: team.matchesLost,
+            GoalsFor: team.goalsFor,
+            GoalsAgainst: team.goalsAgainst,
+            GoalsDiff: team.goalsFor - team.goalsAgainst
+        }
+    }));
+    i++;
 })
+
+// Mostramos el total de goles y el total de puntos
+// for equivalente al reduce
+    /*
+    let goalsAcumulated = 0;
+    for (const team of premier.teams) {
+        goalsAcumulated = goalsAcumulated + team.goalsFor;
+    } 
+    const totalGoals = premier.teams.reduce(function(goalsAcumulated, team) {
+        return goalsAcumulated + team.goalsFor;
+        
+    }, 0); */
+
+    const initialAccumulator = {totalGoals: 0, totalPoints: 0}
+    const totals = premier.teams.reduce(function(accumulator, team) {
+        accumulator.totalGoals += team.goalsFor;
+        accumulator.totalPoints += team.points;
+        return accumulator;
+    }, initialAccumulator);
+
+    console.log('Totales:', totals);
+
 //console.log(premier.summaries)
 //console.log('Teams', premier.teams)

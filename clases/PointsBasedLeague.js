@@ -117,8 +117,8 @@ getStandings() {
             }
          }    
     })
-    console.log('Standings')
-    console.table(this.teams)
+    //console.log('Standings')
+    //console.table(this.teams)
 }
 
 }
