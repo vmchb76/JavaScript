@@ -1,12 +1,18 @@
-import request from 'request'
+import axios from 'axios'
+//import request from 'request'
 import FootballLeague from "./clases/PointsBasedLeague.js";
 //import { premierLeagueTeams } from "./teams.js"
 
 const url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.clubs.json'
-request.get(url, function(error,response, body) {
-    const teamsData = JSON.parse(body)
-    const premierLeagueTeams = teamsData.clubs.map(club => club.name)
-    console.log(premierLeagueTeams)
+
+axios.get(url).then(function(response) {
+    const premierLeagueTeams = response.data.clubs.map(club => club.name)
+    console.log('Response', premierLeagueTeams)
+
+//request.get(url, function(error,response, body) {
+    //const teamsData = JSON.parse(body)
+    //const premierLeagueTeams = teamsData.clubs.map(club => club.name)
+    //console.log(premierLeagueTeams)
 
     const config = { rounds : 2, pointsPerWin: 3}
     const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
@@ -96,4 +102,6 @@ request.get(url, function(error,response, body) {
     //console.log(premier.summaries)
     //console.log('Teams', premier.teams)
 
+}, function(error) {
+    console.error('Error', error)
 })
