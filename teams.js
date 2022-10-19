@@ -1,6 +1,6 @@
-export const LiverpoolTeams = ['Liverpool', 'Everton']
-export const manchesterTeams = ['Manchester City', 'Manchester United']
-export const londonTeams = ['Arsenal', 'Chelsea', 'Fulham', 'West Ham', 'Tottenham', 'Crystal Palace']
+export const LiverpoolTeams = ['Tigres', 'Nonterrey', 'Juarez','Puebla']
+export const manchesterTeams = ['Tijuana', 'Santos Laguna', 'Mazatlan', 'Atlas']
+export const londonTeams = ['America', 'Pachuca', 'Cruz Azul', 'U.N.A.M.', 'Chivas', 'Necaxa']
 
 export const premierLeagueTeams = [
     ...LiverpoolTeams,
