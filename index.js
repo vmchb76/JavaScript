@@ -5,7 +5,10 @@ import FootballLeague from "./clases/PointsBasedLeague.js";
 
 const url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.clubs.json'
 
-axios.get(url).then(function(response) {
+try {
+    const response = await axios.get(url)
+
+//axios.get(url).then(function(response) {
     const premierLeagueTeams = response.data.clubs.map(club => club.name)
     console.log('Response', premierLeagueTeams)
 
@@ -102,6 +105,7 @@ axios.get(url).then(function(response) {
     //console.log(premier.summaries)
     //console.log('Teams', premier.teams)
 
-}, function(error) {
-    console.error('Error', error)
-})
+} 
+    catch (error) {
+    console.error('error', error)
+}
