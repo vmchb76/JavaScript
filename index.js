@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { getTeamsWithPromise } from "./teams.js"
 //import request from 'request'
 import FootballLeague from "./clases/PointsBasedLeague.js";
 //import { premierLeagueTeams } from "./teams.js"
@@ -6,10 +6,10 @@ import FootballLeague from "./clases/PointsBasedLeague.js";
 const url = 'https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.clubs.json'
 
 try {
-    const response = await axios.get(url)
+    const teams = await getTeamsWithPromise()
 
 //axios.get(url).then(function(response) {
-    const premierLeagueTeams = response.data.clubs.map(club => club.name)
+    const premierLeagueTeams = teams.map(club => club.name)
     console.log('Response', premierLeagueTeams)
 
 //request.get(url, function(error,response, body) {
@@ -17,7 +17,7 @@ try {
     //const premierLeagueTeams = teamsData.clubs.map(club => club.name)
     //console.log(premierLeagueTeams)
 
-    const config = { rounds : 2, pointsPerWin: 3}
+    const config = { rounds : 1, pointsPerWin: 3}
     const premier = new FootballLeague('Premier League', premierLeagueTeams, config);
     //const premier = new FootballLeague('Premier League', ['A', 'B', 'C', 'D'], config);
     //console.log('CONFIG' ,premier.config);
